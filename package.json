@@ -1,0 +1,16 @@
+{
+    "name": "freestyle",
+    "main": "index.html",
+    "description": "Render your style files for any project in any OS.",
+    "version": "0.1.0",
+    "keywords": ["stylus", "linux", "prepros", "opensource"],
+    "window": {
+        "title": "Freestyle 0.1.0",
+        "toolbar": true,
+        "frame": true,
+        "position": "center",
+        "width": 800,
+        "height": 600,
+        "resizable": false
+    }
+}
