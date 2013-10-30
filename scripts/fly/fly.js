@@ -45,20 +45,28 @@
         },
 
         _detectElemMod: function(el, mod, elemName) {
-            var cstring = el[0].className + ' ',
-                modificator = cstring.indexOf(this._name + '__' + (elemName || this._detectElemName(el)) + '_' + mod + '_'),
-                space = cstring.indexOf(' ', modificator);
+            if (el.length > 0) {
+                var cstring = el[0].className + ' ',
+                    modificator = cstring.indexOf(this._name + '__' + (elemName || this._detectElemName(el)) + '_' + mod + '_'),
+                    space = cstring.indexOf(' ', modificator);
 
-            return ~modificator ? cstring.substring(modificator, space) : '';
+                return ~modificator ? cstring.substring(modificator, space) : '';
+            } else {
+                return '';
+            }
         },
 
         _detectElemName: function(el) {
-            var cstring = el[0].className + ' ',
-                separator = cstring.indexOf(this._name + '__') + this._name.length + 2,
-                space = cstring.indexOf(' ', separator),
-                underline = cstring.indexOf('_', separator);
+            if (el.length > 0) {
+                var cstring = el[0].className + ' ',
+                    separator = cstring.indexOf(this._name + '__') + this._name.length + 2,
+                    space = cstring.indexOf(' ', separator),
+                    underline = cstring.indexOf('_', separator);
 
-            return cstring.substring(separator, Math.min(~underline ? underline : Infinity, space));
+                return cstring.substring(separator, Math.min(~underline ? underline : Infinity, space));
+            } else {
+                return '';
+            }
         },
 
         _modCallback: function(mod, val, old) {
@@ -76,7 +84,7 @@
             if (typeof el === 'string') {
                 val = mod; mod = el;
                 return typeof val === 'undefined' ? !!this._mods[mod] : this._mods[mod] === val;
-            } else {
+            } else if (el.length > 0) {
                 var current = this.getMod(el, mod);
                 return typeof val === 'undefined' ? !!current : current === val;
             }

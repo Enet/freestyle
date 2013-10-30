@@ -12,17 +12,30 @@ fly.loadModule('w-ajax', {
                 file: $('.c-file-panel').flyficate('c-file-panel')[0]
             },
             page: {
-                project: $('.p-project-config').flyficate('p-project-config')[0]
+                project: $('.p-project-config').flyficate('p-project-config')[0],
+                remove: $('.p-project-remove').flyficate('p-project-remove')[0]
             }
         };
     },
 
     _onReady: function() {
         this.getElem('body').html(fly.render('<w-ajax/>'));
-        this._initControls();
+        this
+            .load()
+            ._initControls();
     },
 
     open: function(page, params) {
         this.controls.page[page].open(params);
+    },
+
+    save: function() {
+        localStorage.projects = JSON.stringify(storage.projects);
+        return this;
+    },
+
+    load: function() {
+        storage.projects = JSON.parse(localStorage.projects);
+        return this;
     }
 });

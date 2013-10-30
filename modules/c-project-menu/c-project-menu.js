@@ -5,7 +5,7 @@ fly.loadModule('c-project-menu', {
 
     _onItemClick: function(e) {
         var id = this.getMod($(e.target), 'id');
-        this[id]();
+        if (this.hasMod('activated', 'yes') || id === 'add') this[id]();
     },
 
     add: function() {
@@ -13,7 +13,7 @@ fly.loadModule('c-project-menu', {
     },
 
     remove: function() {
-
+        app.open('remove', {title: storage.current.project});
     },
 
     refresh: function() {
@@ -21,6 +21,6 @@ fly.loadModule('c-project-menu', {
     },
 
     configure: function() {
-
+        app.open('project', storage.projects[storage.current.project]);
     }
 });

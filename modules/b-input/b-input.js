@@ -48,8 +48,8 @@ fly.loadModule('b-input_type_file', {
         this.getElem('file').on('click', $.proxy(this._onFileClick, this));
     },
 
-    _onInputChange: function(e, value) {
-        this._set(value);
+    _onInputChange: function(e) {
+        this._set(this.getElem('input').val());
         this.__base.apply(this, arguments);
     },
 

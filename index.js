@@ -2,13 +2,13 @@ var deps = {
         scripts: ['jquery', 'transit', 'inherit', 'easy', 'fly'],
         styles: ['reset'],
         modules: [
-            'w-ajax', 'p-project-config',
+            'w-ajax', 'p-project-config', 'p-project-remove',
             'c-project-menu', 'c-file-panel', 'c-config-panel', 'c-project-panel', 'c-overlay',
             'b-input', 'b-button'
         ],
         elements: [
             'p-project-config/list', 'p-project-config/header',
-            'c-project-menu/item'
+            'c-project-menu/item', 'c-project-panel/project'
         ]
     },
     strings = {
@@ -25,6 +25,12 @@ var deps = {
         nib: require('nib')
     },
     templates = {},
+    storage = {
+        current: {
+            project: null,
+            file: null
+        }
+    },
     buffer = '';
 
 for (var s in strings) {
@@ -44,4 +50,7 @@ for (var s in strings) {
     }
 }
 
+delete data;
 document.write(buffer);
+
+if (typeof localStorage.projects === 'undefined') localStorage.projects = JSON.stringify({});

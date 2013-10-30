@@ -4,7 +4,7 @@
   font-family: 'Share Tech';
   color: #fff;
   background: transparent;
-  border: 2px #fff solid;
+  border: 0.1em #fff solid;
   cursor: pointer;
   display: inline-block;
   text-shadow: 0 0 0 #fff;
@@ -17,7 +17,7 @@
   transition: text-shadow 0.3s, box-shadow 0.3s;
 }
 .b-button:hover {
-  text-shadow: 0 0 5px #fff;
-  -webkit-box-shadow: 0 0 5px #fff;
-  box-shadow: 0 0 5px #fff;
+  text-shadow: 0 0 0.3em #fff;
+  -webkit-box-shadow: 0 0 0.3em #fff;
+  box-shadow: 0 0 0.3em #fff;
 }

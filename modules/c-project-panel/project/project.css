@@ -1,0 +1,22 @@
+.c-project-panel__project {
+  font-size: 1.5em;
+  color: #000;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+  padding: 0.5em;
+  -webkit-transition: background 0.3s;
+  -moz-transition: background 0.3s;
+  -o-transition: background 0.3s;
+  -ms-transition: background 0.3s;
+  transition: background 0.3s;
+}
+.c-project-panel__project:hover {
+  background: rgba(255,255,255,0.5);
+}
+.c-project-panel__project_selected_yes {
+  background: #fff;
+}
+.c-project-panel__project_selected_yes:hover {
+  background: #fff;
+}

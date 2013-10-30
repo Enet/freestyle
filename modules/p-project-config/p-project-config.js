@@ -25,11 +25,25 @@ fly.loadModule('p-project-config', {
     },
 
     _onSubmitClick: function() {
-        this.close();
+        this
+            .save()
+            .close();
+    },
+
+    _get: function() {
+        var params = {};
+        for (var s in this.__self.params) {
+            params[s] = {};
+            for (var f in this.__self.params[s]) {
+                params[s][f] = this.dom.find('.b-input_name_' + s + '-' + f).fly().val();
+            }
+        }
+        return params;
     },
 
     _set: function(params) {
         params = params || this.__self.params;
+        this._title = params.general.title;
         for (var s in params) {
             for (var f in params[s]) {
                 var value = params[s][f];
@@ -40,19 +54,31 @@ fly.loadModule('p-project-config', {
         return this;
     },
 
+    save: function() {
+        var project = this._get();
+        if (/[a-zA-Zа-яА-Я0-9]+/.test(project.general.title)) {
+            if (this._title !== '') delete storage.projects[this._title];
+            storage.projects[project.general.title] = project;
+            app.save();
+        } else {
+            alert('Please, enter the project name consists of latin or cyrillic symbols or digits.');
+        }
+        return this;
+    },
+
     open: function(params) {
-        this
+        return this
             ._set(params)
             .setMod('visible', 'yes');
     },
 
     close: function() {
-        this.delMod('visible');
+        return this.delMod('visible');
     }
 }, {
     params: {
         general: {
-            name: '',
+            title: '',
             path: '/home'
         },
         scan: {

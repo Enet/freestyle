@@ -26,7 +26,7 @@
   transition: text-shadow 0.3s;
 }
 .b-input_type_checkbox .b-input__label:hover {
-  text-shadow: 0 0 5px #fff;
+  text-shadow: 0 0 0.3em #fff;
 }
 .b-input_type_text .b-input__label {
   float: left;
@@ -43,7 +43,7 @@
   box-sizing: border-box;
   background: transparent;
   border: none;
-  border-bottom: 2px #fff dotted;
+  border-bottom: 0.1em #fff dotted;
   text-shadow: 0 0 0 #fff;
   -webkit-transition: text-shadow 0.3s;
   -moz-transition: text-shadow 0.3s;
@@ -52,7 +52,7 @@
   transition: text-shadow 0.3s;
 }
 .b-input_type_text .b-input__input:focus {
-  text-shadow: 0 0 5px #fff;
+  text-shadow: 0 0 0.3em #fff;
 }
 .b-input_type_file .b-input__input {
   display: none;
@@ -79,5 +79,5 @@
   transition: text-shadow 0.3s;
 }
 .b-input__file:hover {
-  text-shadow: 0 0 5px #fff;
+  text-shadow: 0 0 0.3em #fff;
 }

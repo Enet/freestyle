@@ -17,3 +17,15 @@
   left: 0;
   bottom: 0;
 }
+.c-project-menu_activated_no .c-project-menu__item_id_refresh,
+.c-project-menu_activated_no .c-project-menu__item_id_configure,
+.c-project-menu_activated_no .c-project-menu__item_id_remove {
+  top: 5em;
+  cursor: default;
+}
+.c-project-menu_activated_no .c-project-menu__item_id_refresh:hover,
+.c-project-menu_activated_no .c-project-menu__item_id_configure:hover,
+.c-project-menu_activated_no .c-project-menu__item_id_remove:hover {
+  top: 5em;
+  cursor: default;
+}

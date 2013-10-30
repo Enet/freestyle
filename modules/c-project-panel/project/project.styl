@@ -1,0 +1,24 @@
+@import '../../../styles/common/common'
+
+.c-project-panel__project {
+    font-size: 1.5em;
+    color: $color_black;
+    background: transparent;
+    cursor: pointer;
+    width: 100%;
+    padding: .5em;
+
+    transition: background .3s;
+
+    &:hover {
+        background: rgba($color_white,.5);
+    }
+}
+
+.c-project-panel__project_selected_yes {
+    background: $color_white;
+
+    &:hover {
+        background: $color_white;
+    }
+}
