@@ -1,0 +1,8 @@
+.c-file-panel {
+  position: fixed;
+  left: 25%;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  background: #fff;
+}

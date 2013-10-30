@@ -1,0 +1,64 @@
+@import '../../styles/common/common'
+
+.p-project-config {
+    fixed: left top -100%;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    background: rgba($color_black,.5);
+
+    transition: top .5s, opacity .5s;
+}
+
+.p-project-config_visible_yes {
+    opacity: 1;
+    top: 0;
+}
+
+.p-project-config__layout {
+    height: 100%;
+    width: 100%;
+}
+
+.p-project-config__row_y_0 {
+    height: 3em;
+}
+
+.p-project-config__row_y_1,
+.p-project-config__row_y_2 {
+    height: 8em;
+}
+
+.p-project-config__col_x_1 {
+    padding-left: 1em;
+}
+
+.p-project-config__col_x_2 {
+    padding-right: 1em;
+}
+
+.p-project-config__col_x_12 {
+    padding: 0 1em;
+}
+
+.p-project-config__col_x_1,
+.p-project-config__col_x_2 {
+    width: 45%;
+    padding-right: 5%;
+}
+
+.p-project-config__container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.p-project-config__submit {
+    float: right;
+    relative: left top -1em;
+}
+
+.p-project-config__input.b-input_name_exception-noscan .b-input__input {
+    width: 100% !important;
+    relative: left top .3em;
+}

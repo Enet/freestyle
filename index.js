@@ -1,8 +1,15 @@
 var deps = {
         scripts: ['jquery', 'transit', 'inherit', 'easy', 'fly'],
-        styles: [],
-        modules: ['w-ajax', 'c-project-menu', 'c-file-panel', 'c-config-panel', 'c-project-panel'],
-        elements: ['c-project-menu/item']
+        styles: ['reset'],
+        modules: [
+            'w-ajax', 'p-project-config',
+            'c-project-menu', 'c-file-panel', 'c-config-panel', 'c-project-panel', 'c-overlay',
+            'b-input', 'b-button'
+        ],
+        elements: [
+            'p-project-config/list', 'p-project-config/header',
+            'c-project-menu/item'
+        ]
     },
     strings = {
         scripts: '<script src="scripts/%ID%/%ID%.js"></script>',
@@ -12,6 +19,7 @@ var deps = {
     },
     lib = {
         fs: require('fs'),
+        gui: require('nw.gui'),
         async: require('async'),
         stylus: require('stylus'),
         nib: require('nib')

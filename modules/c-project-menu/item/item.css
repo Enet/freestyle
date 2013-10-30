@@ -1,0 +1,18 @@
+.c-project-menu__item {
+  cursor: pointer;
+  height: 2em;
+  width: 2em;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  -webkit-transition: opacity 0.3s;
+  -moz-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+  -ms-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+.c-project-menu__item:hover {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+}

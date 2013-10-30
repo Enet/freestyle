@@ -1,0 +1,57 @@
+<section class="<?= mods ?>">
+    <table class="p-project-config__layout">
+        <tr class="p-project-config__row p-project-config__row_y_0">
+            <td class="p-project-config__col p-project-config__col_x_12" colspan="2">
+                <p-project-config__header size="1">Freestyle :: Project Configuration</p-project-config__header>
+            </td>
+        </tr>
+        <tr class="p-project-config__row p-project-config__row_y_1">
+            <td class="p-project-config__col p-project-config__col_x_1">
+                <p-project-config__header size="2">General</p-project-config__header>
+                <b-input mix="p-project-config__input" name="general-name" type="text" width="@20" label="@Name"/>
+                <b-input mix="p-project-config__input" name="general-path" type="file" width="@20" label="@Path"/>
+            </td>
+            <td class="p-project-config__col p-project-config__col_x_2">
+                <p-project-config__header size="2">Scan</p-project-config__header>
+                <b-input type="checkbox" mix="p-project-config__input" name="scan-time" label="@Scan folder every 5 minutes"/>
+                <b-input type="checkbox" mix="p-project-config__input" name="scan-hotkey" label="@Scan folder when F5 pressed"/>
+            </td>
+        </tr>
+        <tr class="p-project-config__row p-project-config__row_y_2">
+            <td class="p-project-config__col p-project-config__col_x_1">
+                <p-project-config__header size="2">Notification</p-project-config__header>
+                <b-input type="checkbox" mix="p-project-config__input" name="notify-error" label="@On error"/>
+                <b-input type="checkbox" mix="p-project-config__input" name="notify-success" label="@On success"/>
+            </td>
+            <td class="p-project-config__col p-project-config__col_x_2">
+                <p-project-config__header size="2">Exceptions</p-project-config__header>
+                <b-input mix="p-project-config__input" type="text" name="exception-noscan" width="@100" label="@Comma-separated keywords"/>
+            </td>
+        </tr>
+        <tr class="p-project-config__row p-project-config__row_y_3">
+            <td class="p-project-config__col p-project-config__col_x_12" colspan="2">
+                <div class="p-project-config__container">
+                    <p-project-config__list title="@Show">
+                        <b-input type="checkbox" mix="p-project-config__input" name="show-less" label="@.less"/>
+                        <b-input type="checkbox" mix="p-project-config__input" name="show-sass" label="@.scss"/>
+                        <b-input type="checkbox" mix="p-project-config__input" name="show-stylus" label="@.styl"/>
+                        <b-input type="checkbox" mix="p-project-config__input" name="show-css" label="@.css"/>
+                        <b-input type="checkbox" mix="p-project-config__input" name="show-js" label="@.js"/>
+                    </p-project-config__list>
+                    <p-project-config__list title="@Compile">
+                        <b-input type="checkbox" mix="p-project-config__input" name="compile-less" label="@LESS"/>
+                        <b-input type="checkbox" mix="p-project-config__input" name="compile-sass" label="@SASS"/>
+                        <b-input type="checkbox" mix="p-project-config__input" name="compile-stylus" label="@Stylus"/>
+                        <b-input type="checkbox" mix="p-project-config__input" name="compile-nib" label="@Use Nib"/>
+                    </p-project-config__list>
+                    <p-project-config__list title="@Minify">
+                        <b-input type="checkbox" mix="p-project-config__input" name="minify-css" label="@CSS"/>
+                        <b-input type="checkbox" mix="p-project-config__input" name="minify-js" label="@JavaScript"/>
+                    </p-project-config__list>
+                </div>
+                <b-button mix="p-project-config__submit">Save project</b-button>
+            </td>
+        </tr>
+
+    </table>
+</section>

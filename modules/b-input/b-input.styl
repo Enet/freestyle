@@ -1,0 +1,84 @@
+@import '../../styles/common/common'
+
+.b-input {
+    height: 2em;
+    width: 100%;
+}
+
+.b-input__label {
+    font-size: 1.5em;
+    color: $color_white;
+    font-family: 'Share Tech';
+}
+
+.b-input_type_checkbox {
+    .b-input__input {
+        height: 1em;
+        width: 1em;
+        font-size: 1em;
+        font-family: 'Share Tech';
+        relative: left top .2em;
+    }
+
+    .b-input__label {
+        text-shadow: 0 0 0 $color_white;
+        cursor: pointer;
+
+        transition: text-shadow .3s;
+
+        &:hover {
+            text-shadow: 0 0 5px $color_white;
+        }
+    }
+}
+
+.b-input_type_text {
+        
+    .b-input__label {
+        float: left;
+        relative: left top .3em;
+    }
+
+    .b-input__input {
+        font-size: 1.5em;
+        font-family: 'Share Tech';
+        color: $color_white;
+        box-sizing: border-box;
+        background: transparent;
+        border: none;
+        border-bottom: 2px $color_white dotted;
+        text-shadow: 0 0 0 $color_white;
+
+        transition: text-shadow .3s;
+
+        &:focus {
+            text-shadow: 0 0 5px $color_white;
+        }
+    }
+}
+
+.b-input_type_file {
+    & .b-input__input {
+        display: none;
+    }
+
+    .b-input__label {
+        float: left;
+        relative: left top .3em;
+    }
+}
+
+.b-input__file {
+    display: inline;
+    font-size: 1.5em;
+    color: $color_white;
+    cursor: pointer;
+    relative: left top .3em;
+    text-shadow: 0 0 0 $color_white;
+
+    transition: text-shadow .3s;
+
+    &:hover {
+        text-shadow: 0 0 5px $color_white;
+    }
+}

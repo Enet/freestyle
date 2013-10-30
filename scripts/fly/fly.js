@@ -150,6 +150,10 @@
             this._storage = [];
         },
 
+        getStatic: function(moduleName) {
+            return (this._modules[moduleName] || {}).staticPart || {};
+        },
+
         loadModule: function(baseName, moduleName, instancePart, staticPart) {
             if (typeof moduleName !== 'string') {
                 staticPart = instancePart;

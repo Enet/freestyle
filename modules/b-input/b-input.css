@@ -1,0 +1,83 @@
+.b-input {
+  height: 2em;
+  width: 100%;
+}
+.b-input__label {
+  font-size: 1.5em;
+  color: #fff;
+  font-family: 'Share Tech';
+}
+.b-input_type_checkbox .b-input__input {
+  height: 1em;
+  width: 1em;
+  font-size: 1em;
+  font-family: 'Share Tech';
+  position: relative;
+  left: 0;
+  top: 0.2em;
+}
+.b-input_type_checkbox .b-input__label {
+  text-shadow: 0 0 0 #fff;
+  cursor: pointer;
+  -webkit-transition: text-shadow 0.3s;
+  -moz-transition: text-shadow 0.3s;
+  -o-transition: text-shadow 0.3s;
+  -ms-transition: text-shadow 0.3s;
+  transition: text-shadow 0.3s;
+}
+.b-input_type_checkbox .b-input__label:hover {
+  text-shadow: 0 0 5px #fff;
+}
+.b-input_type_text .b-input__label {
+  float: left;
+  position: relative;
+  left: 0;
+  top: 0.3em;
+}
+.b-input_type_text .b-input__input {
+  font-size: 1.5em;
+  font-family: 'Share Tech';
+  color: #fff;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: transparent;
+  border: none;
+  border-bottom: 2px #fff dotted;
+  text-shadow: 0 0 0 #fff;
+  -webkit-transition: text-shadow 0.3s;
+  -moz-transition: text-shadow 0.3s;
+  -o-transition: text-shadow 0.3s;
+  -ms-transition: text-shadow 0.3s;
+  transition: text-shadow 0.3s;
+}
+.b-input_type_text .b-input__input:focus {
+  text-shadow: 0 0 5px #fff;
+}
+.b-input_type_file .b-input__input {
+  display: none;
+}
+.b-input_type_file .b-input__label {
+  float: left;
+  position: relative;
+  left: 0;
+  top: 0.3em;
+}
+.b-input__file {
+  display: inline;
+  font-size: 1.5em;
+  color: #fff;
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  top: 0.3em;
+  text-shadow: 0 0 0 #fff;
+  -webkit-transition: text-shadow 0.3s;
+  -moz-transition: text-shadow 0.3s;
+  -o-transition: text-shadow 0.3s;
+  -ms-transition: text-shadow 0.3s;
+  transition: text-shadow 0.3s;
+}
+.b-input__file:hover {
+  text-shadow: 0 0 5px #fff;
+}

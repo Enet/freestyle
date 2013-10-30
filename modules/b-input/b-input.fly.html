@@ -1,0 +1,28 @@
+<? var link = Math.random(); b.width = b.width || 30; ?>
+<div class="<?= mods ?>">
+    <?
+        switch (b.type) {
+            case 'text':
+    ?>
+    <label style="width:<?= b.width ?>%" for="<?= link ?>" class="b-input__label"><?= b.label ?></label>
+    <input style="width:<?= 100 - b.width ?>%" id="<?= link ?>" class="b-input__input" type="<?= b.type ?>" value="<?= b.value || '' ?>"/>
+    <?
+                break;
+            case 'file':
+    ?>
+    <label style="width:<?= b.width ?>%" for="<?= link ?>" class="b-input__label"><?= b.label ?></label>
+    <input style="width:<?= 100 - b.width ?>%" id="<?= link ?>" class="b-input__input" type="<?= b.type ?>" nwworkingdir="<?= b.value || '' ?>" nwdirectory="nwdirectory"/>
+    <span class="b-input__file">Choose directory</span>
+    <?
+                break;
+            case 'checkbox':
+    ?>
+    <label class="b-input__label">
+        <input class="b-input__input" type="<?= b.type ?>" <?= !!b.value ? 'checked="checked"' : '' ?>/>
+        <?= b.label ?>
+    </label>
+    <?
+                break;
+        }
+    ?>
+</div>
