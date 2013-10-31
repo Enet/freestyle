@@ -1,0 +1,24 @@
+@import '../../../styles/common/common'
+
+.c-file-panel__file {
+    font-size: 1.5em;
+    color: $color_black;
+    background: transparent;
+    cursor: pointer;
+    width: 100%;
+    padding: .5em;
+
+    transition: background .3s;
+
+    &:hover {
+        background: rgba($color_grey,.5);
+    }
+}
+
+.c-file-panel__file_selected_yes {
+    background: $color_grey;
+
+    &:hover {
+        background: $color_grey;
+    }
+}

@@ -33,14 +33,12 @@
                 <div class="p-project-config__container">
                     <p-project-config__list title="@Show">
                         <b-input type="checkbox" mix="p-project-config__input" name="show-less" label="@.less"/>
-                        <b-input type="checkbox" mix="p-project-config__input" name="show-sass" label="@.scss"/>
                         <b-input type="checkbox" mix="p-project-config__input" name="show-stylus" label="@.styl"/>
                         <b-input type="checkbox" mix="p-project-config__input" name="show-css" label="@.css"/>
                         <b-input type="checkbox" mix="p-project-config__input" name="show-js" label="@.js"/>
                     </p-project-config__list>
                     <p-project-config__list title="@Compile">
                         <b-input type="checkbox" mix="p-project-config__input" name="compile-less" label="@LESS"/>
-                        <b-input type="checkbox" mix="p-project-config__input" name="compile-sass" label="@SASS"/>
                         <b-input type="checkbox" mix="p-project-config__input" name="compile-stylus" label="@Stylus"/>
                         <b-input type="checkbox" mix="p-project-config__input" name="compile-nib" label="@Use Nib"/>
                     </p-project-config__list>
@@ -49,7 +47,8 @@
                         <b-input type="checkbox" mix="p-project-config__input" name="minify-js" label="@JavaScript"/>
                     </p-project-config__list>
                 </div>
-                <b-button mix="p-project-config__submit">Save project</b-button>
+                <b-button mix="p-project-config__submit">Save</b-button>
+                <b-button mix="p-project-config__cancel">Close</b-button>
             </td>
         </tr>
 

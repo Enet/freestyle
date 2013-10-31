@@ -17,8 +17,9 @@ fly.loadModule('c-project-panel', {
             selection = this.findElem('project_selected_yes');
 
         this.delMod(selection, 'selected');
+        app.unwatch();
         if (target.get(0) !== selection.get(0)) {
-            storage.current.project = this.getMod(target, 'title');
+            app.scan(storage.current.project = this.getMod(target, 'title'));
             this.setMod(target, 'selected', 'yes');
             this.controls.menu.setMod('activated', 'yes');
         } else {

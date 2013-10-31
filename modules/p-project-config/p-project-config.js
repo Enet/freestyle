@@ -4,12 +4,14 @@ fly.loadModule('p-project-config', {
 
         this.dom.on('change', '.p-project-config__input', $.proxy(this._onInputChange, this));
         this.getElem('submit').on('click', $.proxy(this._onSubmitClick, this));
+        this.getElem('cancel').on('click', $.proxy(this._onCancelClick, this));
     },
 
     _initControls: function() {
         this.controls = {
             input: this.dom.find('.b-input').flyficate('b-input'),
-            submit: this.getElem('submit').flyficate('b-button')
+            submit: this.getElem('submit').flyficate('b-button'),
+            cancel: this.getElem('cancel').flyficate('b-button')
         };
     },
 
@@ -17,17 +19,19 @@ fly.loadModule('p-project-config', {
         var target = $(e.target);
         if (target.hasClass('p-project-config__input')) {
             var name = target.fly().getMod('name');
-            if (['compile-less', 'compile-sass', 'compile-stylus', 'minify-css', 'minify-js'].indexOf(name) !== -1) {
+            if (['compile-less', 'compile-stylus', 'minify-css', 'minify-js'].indexOf(name) !== -1) {
                 this.dom.find('.b-input_name_show' + name.substr(name.indexOf('-'))).fly().val(value);
                 if (name === 'compile-stylus') this.dom.find('.b-input_name_compile-nib').fly()[value ? 'enable' : 'disable']();
             }
         }
     },
 
+    _onCancelClick: function() {
+        this.close();
+    },
+
     _onSubmitClick: function() {
-        this
-            .save()
-            .close();
+        this.save();
     },
 
     _get: function() {
@@ -60,10 +64,11 @@ fly.loadModule('p-project-config', {
             if (this._title !== '') delete storage.projects[this._title];
             storage.projects[project.general.title] = project;
             app.save();
+            return this.close();
         } else {
             alert('Please, enter the project name consists of latin or cyrillic symbols or digits.');
+            return this;
         }
-        return this;
     },
 
     open: function(params) {
@@ -94,14 +99,12 @@ fly.loadModule('p-project-config', {
         },
         show: {
             less: true,
-            sass: true,
             stylus: true,
             css: true,
             js: true
         },
         compile: {
             less: true,
-            sass: true,
             stylus: true,
             nib: true
         },

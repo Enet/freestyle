@@ -8,7 +8,7 @@ var deps = {
         ],
         elements: [
             'p-project-config/list', 'p-project-config/header',
-            'c-project-menu/item', 'c-project-panel/project'
+            'c-project-menu/item', 'c-project-panel/project', 'c-file-panel/file'
         ]
     },
     strings = {
@@ -19,10 +19,15 @@ var deps = {
     },
     lib = {
         fs: require('fs'),
+        exec: require('child_process').exec,
         gui: require('nw.gui'),
         async: require('async'),
         stylus: require('stylus'),
-        nib: require('nib')
+        nib: require('nib'),
+        less: require('less'),
+        uglifyjs: require('uglify-js'),
+        sqwish: require('sqwish'),
+        walk: require('walk')['walk']
     },
     templates = {},
     storage = {
