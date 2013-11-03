@@ -1,14 +1,14 @@
 @import '../../../styles/common/common'
 
 .c-file-panel__file {
-    font-size: 1.5em;
     color: $color_black;
     background: transparent;
     cursor: pointer;
+    box-sizing: border-box;
     width: 100%;
-    padding: .5em;
+    padding-bottom: .5em;
 
-    transition: background .3s;
+    transition: background .3s, color .3s;
 
     &:hover {
         background: rgba($color_grey,.5);
@@ -16,9 +16,35 @@
 }
 
 .c-file-panel__file_selected_yes {
-    background: $color_grey;
+    background: $color_darkgrey;
+    color: $color_white;
 
     &:hover {
-        background: $color_grey;
+        background: $color_darkgrey;
     }
+}
+
+.c-file-panel__filename {
+    font-size: 1.5em;
+    padding: .33em .33em .1em;
+}
+
+.c-file-panel__filepath {
+    font-size: 1em;
+    height: 1em;
+    relative: top left;
+}
+
+.c-file-panel__pathcontainer {
+    padding: 0 1em 0 .5em;
+    absolute: top left;
+    z-index: 1;
+    box-sizing: border-box;
+}
+
+.c-file-panel__filepath,
+.c-file-panel__filename {
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
 }

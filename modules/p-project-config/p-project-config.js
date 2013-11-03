@@ -48,6 +48,7 @@ fly.loadModule('p-project-config', {
     _set: function(params) {
         params = params || this.__self.params;
         this._title = params.general.title;
+        this._path = params.general.path;
         for (var s in params) {
             for (var f in params[s]) {
                 var value = params[s][f];
@@ -61,9 +62,22 @@ fly.loadModule('p-project-config', {
     save: function() {
         var project = this._get();
         if (/[a-zA-Zа-яА-Я0-9]+/.test(project.general.title)) {
-            if (this._title !== '') delete storage.projects[this._title];
+            if (this._title !== '') {
+                if (this._path !== project.general.path) {
+                    delete storage.updates[this._title];
+                    delete storage.files[this._files];
+                }
+                if (this._title !== project.general.title) {
+                    if (storage.files[this._title] instanceof Array) storage.files[project.general.title] = storage.files[this._title].slice(0);
+                    if (typeof storage.updates[this._title] !== 'undefined') storage.updates[project.general.title] = storage.updates[this._title];
+                    delete storage.updates[this._title];
+                    delete storage.files[this._title];
+                }
+                delete storage.projects[this._title];
+            }
             storage.projects[project.general.title] = project;
             app.save();
+            this.dom.trigger('update', [this._title, project.general.title]);
             return this.close();
         } else {
             alert('Please, enter the project name consists of latin or cyrillic symbols or digits.');

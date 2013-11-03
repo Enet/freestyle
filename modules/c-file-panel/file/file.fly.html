@@ -1,1 +1,6 @@
-<div class="<?= mods ?>" title="<?= e.path ?>"><?= e.filename ?></div>
+<div class="<?= mods ?>" data-path="<?= e.path ?>" title="<?= e.rel ?>">
+    <div class="c-file-panel__filename"><?= e.filename ?></div>
+    <div class="c-file-panel__filepath">
+        <div class="c-file-panel__pathcontainer"><nobr><?= e.rel ?></nobr></div>
+    </div>
+</div>

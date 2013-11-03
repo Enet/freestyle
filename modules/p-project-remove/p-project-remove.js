@@ -25,7 +25,10 @@ fly.loadModule('p-project-remove', {
 
     save: function() {
         delete storage.projects[this._title];
+        delete storage.files[this._title];
+        delete storage.updates[this._title];
         app.save();
+        this.dom.trigger('update', [this._title, '']);
         return this;
     },
 

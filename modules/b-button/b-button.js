@@ -6,7 +6,7 @@ fly.loadModule('b-button', {
     },
 
     _onMouseDown: function() {
-        this.dom.transition({scale: 0.9}, 300);
+        this.dom.transition({scale: 0.95}, 300);
     },
 
     _onMouseUp: function() {

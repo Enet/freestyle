@@ -1,0 +1,31 @@
+@import '../../../styles/common/common'
+
+.c-file-panel__scroll {
+    cursor: pointer;
+    background: $color_lightgrey;
+    width: .5em;
+    height: 100%;
+    absolute: right top;
+    border-right: .15em $color_white solid;
+    z-index: 2;
+
+    &:hover {
+        .c-file-panel__button {
+            background: $color_darkgrey;
+        }
+    }
+}
+
+.c-file-panel__button {
+    width: 100%;
+    height: 100%;
+    relative: top left;
+    background: $color_grey;
+
+    transition: background .3s;
+}
+
+.c-file-panel__scroll_hidden_yes {
+    width: 0;
+    border-color: $color_lightgrey;
+}

@@ -5,4 +5,33 @@
     height: 100%;
     width: 25%;
     background: $color_lightgrey;
+    padding: .5em;
+    box-sizing: border-box;
+}
+
+.c-config-panel__button {
+    width: 100%;
+    margin: .25em 0;
+    box-sizing: border-box;
+    relative: top left 10em;
+
+    transition: left .5s, border-color .3s !important;
+}
+
+.c-config-panel_ext_css,
+.c-config-panel_ext_js {
+    .c-config-panel__button_id_file,
+    .c-config-panel__button_id_folder,
+    .c-config-panel__button_id_minify {
+        left: 0;
+    }
+}
+
+.c-config-panel_ext_styl,
+.c-config-panel_ext_less {
+    .c-config-panel__button_id_file,
+    .c-config-panel__button_id_folder,
+    .c-config-panel__button_id_compile {
+        left: 0;
+    }
 }

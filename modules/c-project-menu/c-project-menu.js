@@ -17,7 +17,7 @@ fly.loadModule('c-project-menu', {
     },
 
     refresh: function() {
-
+        app.scan(storage.current.project, true);
     },
 
     configure: function() {

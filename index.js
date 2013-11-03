@@ -8,7 +8,7 @@ var deps = {
         ],
         elements: [
             'p-project-config/list', 'p-project-config/header',
-            'c-project-menu/item', 'c-project-panel/project', 'c-file-panel/file'
+            'c-project-menu/item', 'c-project-panel/project', 'c-file-panel/file', 'c-file-panel/scroll'
         ]
     },
     strings = {
@@ -25,15 +25,18 @@ var deps = {
         stylus: require('stylus'),
         nib: require('nib'),
         less: require('less'),
-        uglifyjs: require('uglify-js'),
         sqwish: require('sqwish'),
+        uglifyjs: require('uglify-js'),
         walk: require('walk')['walk']
     },
     templates = {},
     storage = {
         current: {
             project: null,
-            file: null
+            file: {
+                id: null,
+                path: null
+            }
         }
     },
     buffer = '';

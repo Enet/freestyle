@@ -5,4 +5,39 @@
   height: 100%;
   width: 25%;
   background: #ddd;
+  padding: 0.5em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.c-config-panel__button {
+  width: 100%;
+  margin: 0.25em 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  top: 0;
+  left: 10em;
+  -webkit-transition: left 0.5s, border-color 0.3s !important;
+  -moz-transition: left 0.5s, border-color 0.3s !important;
+  -o-transition: left 0.5s, border-color 0.3s !important;
+  -ms-transition: left 0.5s, border-color 0.3s !important;
+  transition: left 0.5s, border-color 0.3s !important;
+}
+.c-config-panel_ext_css .c-config-panel__button_id_file,
+.c-config-panel_ext_js .c-config-panel__button_id_file,
+.c-config-panel_ext_css .c-config-panel__button_id_folder,
+.c-config-panel_ext_js .c-config-panel__button_id_folder,
+.c-config-panel_ext_css .c-config-panel__button_id_minify,
+.c-config-panel_ext_js .c-config-panel__button_id_minify {
+  left: 0;
+}
+.c-config-panel_ext_styl .c-config-panel__button_id_file,
+.c-config-panel_ext_less .c-config-panel__button_id_file,
+.c-config-panel_ext_styl .c-config-panel__button_id_folder,
+.c-config-panel_ext_less .c-config-panel__button_id_folder,
+.c-config-panel_ext_styl .c-config-panel__button_id_compile,
+.c-config-panel_ext_less .c-config-panel__button_id_compile {
+  left: 0;
 }
