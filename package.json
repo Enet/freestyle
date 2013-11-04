@@ -6,6 +6,7 @@
     "keywords": ["stylus", "linux", "prepros", "opensource"],
     "window": {
         "title": "Freestyle 0.1.0",
+        "icon": "images/tray_icon.png",
         "toolbar": true,
         "frame": true,
         "position": "center",
