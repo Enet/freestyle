@@ -1,0 +1,52 @@
+@import 'styles/common/common'
+
+@font-face {
+    font-family: 'Share Tech';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Share Tech'), local('ShareTech-Regular'), url('sharetech.woff') format('woff');
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-size: 12pt;
+    font-family: 'Share Tech';
+
+    & * {
+        user-select: none;
+    }
+}
+
+#body {
+    border: 2px $color_black solid;
+    box-sizing: border-box;
+    background: $color_white;
+    padding: .5em;
+    overflow: hidden;
+}
+
+#body[data-status='success'] {
+    background: $color_green;
+}
+
+#body[data-status='error'] {
+    background: $color_red;
+}
+
+#h1 {
+    font-weight: bold;
+    font-size: 1em;
+    margin-bottom: .5em;
+    padding: 0;
+    margin: 0;
+}
+
+#p {
+    font-size: 1em;
+    padding: 0;
+    margin: 0;
+}

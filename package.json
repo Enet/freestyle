@@ -13,5 +13,18 @@
         "height": 600,
         "resizable": false,
         "show": false
-    }
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/Enet/freestyle"
+        }
+    ],
+    "maintainers": [
+        {
+            "name": "Stepan Zhevak",
+            "email": "fly.enet@gmail.com",
+            "web": "http://zhevak.name"
+        }
+    ]
 }

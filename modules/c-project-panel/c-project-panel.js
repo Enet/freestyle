@@ -12,6 +12,10 @@ fly.loadModule('c-project-panel', {
         };
     },
 
+    _onTimerTick: function() {
+        app.scan(storage.current.project);
+    },
+
     select: function(title) {
         this
             .unselect()
@@ -19,16 +23,17 @@ fly.loadModule('c-project-panel', {
             .controls.menu.setMod('activated', 'yes');
 
         app.scan(storage.current.project = title);
+        if (storage.projects[title].scan.time) this._timer = setInterval($.proxy(this._onTimerTick, this), 150000);
         this.dom.trigger('select', [title]);
         return this;
     },
 
     unselect: function() {
+        clearInterval(this._timer);
         this
             .delMod(this.findElem('project_title_' + storage.current.project), 'selected')
             .controls.menu.setMod('activated', 'no');
         
-        app.unwatch();
         this.dom.trigger('select', [storage.current.project = null]);
         return this;
     },

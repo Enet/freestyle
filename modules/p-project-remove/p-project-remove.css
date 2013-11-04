@@ -7,7 +7,7 @@
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.7);
   -webkit-transition: top 0.5s, opacity 0.5s;
   -moz-transition: top 0.5s, opacity 0.5s;
   -o-transition: top 0.5s, opacity 0.5s;

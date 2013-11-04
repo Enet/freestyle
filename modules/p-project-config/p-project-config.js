@@ -102,7 +102,7 @@ fly.loadModule('p-project-config', {
         },
         scan: {
             time: true,
-            hotkey: true
+            tray: true
         },
         notify: {
             error: true,

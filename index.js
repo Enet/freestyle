@@ -4,7 +4,8 @@ var deps = {
         modules: [
             'w-ajax', 'p-project-config', 'p-project-remove',
             'c-project-menu', 'c-file-panel', 'c-config-panel', 'c-project-panel', 'c-overlay',
-            'b-input', 'b-button'
+            'b-input', 'b-button',
+            'i-notify-manager'
         ],
         elements: [
             'p-project-config/list', 'p-project-config/header',
@@ -47,7 +48,7 @@ for (var s in strings) {
             id = item,
             name = s === 'elements' ? item.substr(item.indexOf('/') + 1) : item;
 
-        if (s === 'elements' || s === 'modules') {
+        if (s === 'elements' || s === 'modules' && id[0] !== 'i') {
             var data = lib.fs.readFileSync('modules/' + id + '/' + name + '.fly.html', {encoding: 'utf-8'}).split('<content/>'),
                 t = id.replace('/', '__');
             templates[t + '.start'] = data[0] || '';

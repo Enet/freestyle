@@ -14,7 +14,8 @@ fly.loadModule('w-ajax', {
             page: {
                 project: $('.p-project-config').flyficate('p-project-config')[0],
                 remove: $('.p-project-remove').flyficate('p-project-remove')[0]
-            }
+            },
+            notify: fly.initInstance(null, 'i-notify-manager')
         };
     },
 
@@ -34,7 +35,26 @@ fly.loadModule('w-ajax', {
             .on('compile', $.proxy(this._onConfigPanelCompile, this))
             .on('minify', $.proxy(this._onConfigPanelMinify, this));
 
-        lib.gui.Window.get().show();
+        this._setGUI();
+    },
+
+    _setGUI: function() {
+        var win = lib.gui.Window.get(),
+            tray = new lib.gui.Tray({title: 'Freestyle', icon: 'images/tray_icon.png'});
+
+        tray.on('click', $.proxy(function() {
+            var title = storage.current.project,
+                project = title === null ? null : storage.projects[title];
+            
+            if (project !== null && project.scan.tray) app.scan(title, true);
+        }, this));
+
+        win.on('close', function() {
+            tray.remove();
+            lib.gui.App.quit();
+        });
+
+        win.show();
     },
 
     _onPageProjectUpdate: function(e, prev, curr) {
@@ -71,10 +91,22 @@ fly.loadModule('w-ajax', {
         this.controls.panel.file.update();
     },
 
+    notify: function(status, title, content) {
+        var project = storage.projects[storage.current.project] || {};
+        if ((status === 'success' && project.notify.success) || (status === 'error' && project.notify.error)) {
+            this.controls.notify.message({
+                status: status,
+                title: title,
+                content: content
+            });
+        }
+        return this;
+    },
+
     scan: function(title, force) {
         var project = storage.projects[title];
 
-        if (force !== true && storage.files[title] instanceof Array && (storage.updates[title] - (new Date()).getTime() < 300000 || project.scan.time === false)) {
+        if (force !== true && storage.files[title] instanceof Array && ((new Date()).getTime() - storage.updates[title] < 300000 || project.scan.time === false)) {
             this._onScanComplete();
         } else if (this._scanning.indexOf(title) === -1) {
             this._scanning.push(title);
@@ -90,7 +122,7 @@ fly.loadModule('w-ajax', {
                     var filename = stats.name,
                         ext = filename.substr(filename.lastIndexOf('.'));
 
-                    if (['.less', '.styl', '.css', '.js'].indexOf(ext) !== -1) {
+                    if (filename.substr(-7) !== '.min.js' && filename.substr(-8) !== '.min.css' && ['.less', '.styl', '.css', '.js'].indexOf(ext) !== -1) {
                         var path = root + '/' + filename,
                             rel = path.substr(project.general.path.length + 1),
                             valid = true;
@@ -112,23 +144,23 @@ fly.loadModule('w-ajax', {
                     next();
                 })
                 .on('end', function() {
-                    that._scanning.pop(title);
+                    that._scanning.splice(that._scanning.indexOf(title), 1);
                     storage.updates[title] = (new Date()).getTime();
                     if (title === storage.current.project) that._onScanComplete();
+                    that.notify('success', 'Scan is completed', 'Files for project ' + title + ' were updated.');
                 });
         }
         return this;
     },
 
     _onScanComplete: function() {
-        app.watch();
+        app.unwatch().watch();
         this.controls.panel.file.update();
     },
 
     watch: function() {
         var that = this,
             files = storage.files[storage.current.project];
-        console.log('watch files');
         for (var f = 0, l = files.length; f < l; f++) {
             this._setWatcher(files[f].path);
         }
@@ -145,14 +177,12 @@ fly.loadModule('w-ajax', {
     },
 
     _unsetWatcher: function(path) {
-        console.log('unsetWatcher', path);
-        this._watchers.pop(path);
+        this._watchers.splice(this._watchers.indexOf(path), 1);
         lib.fs.unwatchFile(path);
         return this;
     },
 
     unwatch: function() {
-        console.log('UNwatch files');
         for (var f = 0, l = this._watchers.length; f < l; f++) {
             lib.fs.unwatchFile(this._watchers[f]);
         }
@@ -176,7 +206,34 @@ fly.loadModule('w-ajax', {
                 filename = path.substr(sep + 1);
 
             this.exec('ls -i ' + dirname + ' | grep ' + prevStat.ino, function(stdout) {
-                if (stdout.length > 0) this._setWatcher(dirname + '/' + stdout.substr(0, stdout.length - 1).substr(('' + prevStat.ino).length + 1));
+                if (stdout.length > 0) {
+                    var newpath = dirname + '/' + stdout.substr(0, stdout.length - 1).substr(('' + prevStat.ino).length + 1),
+                        files = storage.files[storage.current.project];
+                    this._setWatcher(newpath);
+                    this.notify('success', 'File is moved', 'File ' + filename + ' is moved.');
+                    for (var f = 0, l = files.length; f < l; f++) {
+                        if (files[f].path === path) {
+                            files[f] = {
+                                path: newpath,
+                                rel: newpath.substr(storage.projects[storage.current.project].general.path.length + 1),
+                                filename: newpath.substr(newpath.lastIndexOf('/') + 1),
+                                mtime: currStat.mtime
+                            };
+                            this.controls.panel.file.update();
+                            break;
+                        }
+                    }
+                } else {
+                    this.notify('success', 'File is deleted', 'File ' + filename + ' is deleted.');
+                    var files = storage.files[storage.current.project];
+                    for (var f = 0, l = files.length; f < l; f++) {
+                        if (files[f].path === path) {
+                            files.splice(f, 1);
+                            this.controls.panel.file.update();
+                            break;
+                        }
+                    }
+                }
             });
         } else if (currStat.mtime > prevStat.mtime) {
             var ext = path.substr(path.lastIndexOf('.'));
@@ -201,6 +258,7 @@ fly.loadModule('w-ajax', {
         var project = storage.projects[storage.current.project];
         if (project.compile.stylus || force) {
             var that = this,
+                filename = path.substr(path.lastIndexOf('/') + 1),
                 target = path.substr(0, path.length - 4) + 'css';
             
             lib.fs.readFile(path, {encoding: 'utf-8'}, function(error, data) {
@@ -212,30 +270,35 @@ fly.loadModule('w-ajax', {
                         if (error === null) {
                             lib.fs.writeFile(target, css, function(error) {
                                 if (error === null) {
+                                    that.notify('success', 'Stylus is compiled', 'Filepath: ' + filename + '.');
                                     if (that._watchers.indexOf(target) === -1) {
                                         that
                                             ._setWatcher(target)
-                                            ._minifyCSS(target);
+                                            ._minifyCSS(target)
+                                            ._addCSS(target);
                                     }
                                 } else {
-
+                                    that.notify('error', 'Writefile error', 'Filepath: ' + filename + '.');
                                 }
                             });
                         } else {
-
+                            that.notify('error', 'Stylus error', 'Filepath: ' + filename + '.');
                         }
                     });
                 } else {
-
+                    that.notify('error', 'Readfile error', 'Filepath: ' + filename + '.');
                 }
             });
         }
+
+        return this;
     },
 
     _compileLESS: function(path, force) {
         var project = storage.projects[storage.current.project];
         if (project.compile.less || force) {
             var that = this,
+                filename = path.substr(path.lastIndexOf('/') + 1),
                 target = path.substr(0, path.length - 4) + 'css';
             
             lib.fs.readFile(path, {encoding: 'utf-8'}, function(error, data) {
@@ -244,31 +307,48 @@ fly.loadModule('w-ajax', {
                         if (error === null) {
                             lib.fs.writeFile(target, css, function(error) {
                                 if (error === null) {
+                                    that.notify('success', 'LESS is compiled', 'Filepath: ' + filename + '.');
                                     if (that._watchers.indexOf(target) === -1) {
                                         that
                                             ._setWatcher(target)
-                                            ._minifyCSS(target);
+                                            ._minifyCSS(target)
+                                            ._addCSS(target);
                                     }
                                 } else {
-
+                                    that.notify('error', 'Writefile error', 'Filepath: ' + filename + '.');
                                 }
                             });
                         } else {
-
+                            that.notify('error', 'LESS error', 'Filepath: ' + filename + '.');
                         }
                     });
                 } else {
-
+                    that.notify('error', 'Readfile error', 'Filepath: ' + filename + '.');
                 }
             });
         }
+
+        return this;
+    },
+
+    _addCSS: function(path) {
+        storage.files[storage.current.project].push({
+            path: path,
+            rel: path.substr(storage.projects[storage.current.project].general.path.length + 1),
+            filename: path.substr(path.lastIndexOf('/') + 1),
+            mtime: new Date()
+        });
+        this.controls.panel.file.update();
+        return this;
     },
 
     _minifyCSS: function(path, force) {
         var project = storage.projects[storage.current.project];
 
         if (project.minify.css || force) {
-            var target = path.substr(0, path.length - 3) + 'min.css';
+            var that = this,
+                filename = path.substr(path.lastIndexOf('/') + 1),
+                target = path.substr(0, path.length - 3) + 'min.css';
             
             lib.fs.readFile(path, {encoding: 'utf-8'}, function(error, data) {
                 if (error === null) {
@@ -276,40 +356,46 @@ fly.loadModule('w-ajax', {
                         var result = lib.sqwish.minify(data);
                         lib.fs.writeFile(target, result, function(error) {
                             if (error === null) {
-
+                                that.notify('success', 'CSS is minified', 'Filepath: ' + filename + '.');
                             } else {
-
+                                that.notify('error', 'Writefile error', 'Filepath: ' + filename + '.');
                             }
                         });
                     } catch(error) {
-
+                        that.notify('error', 'Sqwish error', 'Filepath: ' + filename + '.');
                     }
                 } else {
-
+                    that.notify('error', 'Readfile error', 'Filepath: ' + filename + '.');
                 }
             });
         }
+
+        return this;
     },
 
     _minifyJS: function(path, force) {
         var project = storage.projects[storage.current.project];
 
         if (project.minify.js || force) {
+            var that = this,
+                filename = path.substr(path.lastIndexOf('/') + 1);
             try {
                 var target = path.substr(0, path.length - 2) + 'min.js',
                     result = lib.uglifyjs.minify(path);
 
                 lib.fs.writeFile(target, result.code, function(error) {
                     if (error === null) {
-
+                        that.notify('success', 'JS is minified', 'Filepath: ' + filename + '.');
                     } else {
-
+                        that.notify('error', 'Writefile error', 'Filepath: ' + filename + '.');
                     }
                 });
             } catch(error) {
-
+                that.notify('error', 'UglifyJS error', 'Filepath: ' + filename + '.');
             }
         }
+
+        return this;
     },
 
     open: function(page, params) {
